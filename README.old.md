@@ -1,2 +1,3 @@
 # pokemon-data
-A simple react application to view Pokemon list and their details stats
+
+A simple react web application to view Pokémon list and their details stats
