@@ -61,7 +61,7 @@ export function fetchPokemon() {
 
     if (!pokemonData) {
       dispatch(
-        errorHandler("Something went wrong while trying to get the Pokemon 😟")
+        errorHandler("Something went wrong while trying to get the Pokémon 😟")
       );
     } else {
       dispatch(getPokemon(pokemonData));
@@ -76,7 +76,7 @@ export function fetchPokemonDetail(index) {
     const { data } = await axios.get(urlDetail);
 
     const abilitiesList = [];
-    console.log(data.abilities, "abilities");
+
     data.abilities.forEach((element) => {
       abilitiesList.push(element.ability.name);
     });
@@ -87,6 +87,12 @@ export function fetchPokemonDetail(index) {
       stats[stat.stat.name] = stat.base_stat;
     });
 
+    let types = [];
+
+    data.types.forEach((type) => {
+      types.push(type.type.name);
+    });
+
     const pokemonDetail = {
       index: data.id,
       name: data.name,
@@ -95,11 +101,12 @@ export function fetchPokemonDetail(index) {
       height: data.height,
       weight: data.weight,
       stats,
+      types,
     };
 
     if (!data) {
       dispatch(
-        errorHandler("Something went wrong while trying to get the Pokemon 😟")
+        errorHandler("Something went wrong while trying to get the Pokémon 😟")
       );
     } else {
       dispatch(getPokemonDetail(pokemonDetail));
