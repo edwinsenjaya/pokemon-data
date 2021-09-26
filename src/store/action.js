@@ -49,14 +49,14 @@ export function fetchPokemon() {
         types.push(type.type.name);
       });
 
-      const details = {
+      const pokemonInfo = {
         index: pokemon.entry_number,
         name: pokemon.pokemon_species.name,
         sprites: pokemonDetails.sprites.other["official-artwork"].front_default,
         types,
       };
 
-      pokemonData.push(details);
+      pokemonData.push(pokemonInfo);
     }
 
     if (!pokemonData) {
@@ -73,16 +73,36 @@ export function fetchPokemonDetail(index) {
   return async function (dispatch) {
     const urlDetail = `${baseUrl}/pokemon/${index}`;
 
-    const response = await axios.get(urlDetail);
+    const { data } = await axios.get(urlDetail);
 
-    return response.data;
+    const abilitiesList = [];
+    console.log(data.abilities, "abilities");
+    data.abilities.forEach((element) => {
+      abilitiesList.push(element.ability.name);
+    });
 
-    // if (!data || data.errors) {
-    //   dispatch(
-    //     errorHandler("Something went wrong while trying to get the Pokemon 😟")
-    //   );
-    // } else {
-    //   dispatch(getData(data));
-    // }
+    const stats = {};
+
+    data.stats.forEach((stat) => {
+      stats[stat.stat.name] = stat.base_stat;
+    });
+
+    const pokemonDetail = {
+      index: data.id,
+      name: data.name,
+      sprites: data.sprites.other["official-artwork"].front_default,
+      abilities: abilitiesList,
+      height: data.height,
+      weight: data.weight,
+      stats,
+    };
+
+    if (!data) {
+      dispatch(
+        errorHandler("Something went wrong while trying to get the Pokemon 😟")
+      );
+    } else {
+      dispatch(getPokemonDetail(pokemonDetail));
+    }
   };
 }

@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { favoriteHandler, errorHandler } from "../store/favorite/action";
-// import Swal from "sweetalert2";
+import { errorHandler } from "../store/action";
+import Swal from "sweetalert2";
 
 function PokemonCard(props) {
+  const dispatch = useDispatch();
+  const { errorMessage } = useSelector((state) => state);
   const { pokemonList } = props;
   const colorArray = [];
 
@@ -60,12 +62,16 @@ function PokemonCard(props) {
   });
 
   function formatNumber(number) {
-    let str = "" + number;
+    let str = String(number);
     while (str.length < 3) {
       str = "0" + str;
     }
-
     return "#" + str;
+  }
+
+  if (errorMessage) {
+    Swal.fire("", errorMessage, "error");
+    dispatch(errorHandler(""));
   }
 
   if (pokemonList.length === 0) {
@@ -88,9 +94,9 @@ function PokemonCard(props) {
             <div key={el.index} className="col">
               <div className="card h-100 border border-dark border-2">
                 <div className="row">
-                  {/* <Link> */}
-                  <img src={el.sprites} className="card-img-top" alt="" />
-                  {/* </Link> */}
+                  <Link to={`/pokemon/${el.index}`}>
+                    <img src={el.sprites} className="card-img-top" alt="" />
+                  </Link>
                 </div>
                 <div className="row card-body d-flex flex-column justify-content-end mx-auto">
                   <h2 className="card-title text-center fw-bold text-capitalize">

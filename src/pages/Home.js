@@ -32,7 +32,7 @@ function Home() {
           style={{ height: "150px" }}
         />
         <p className="fs-5 text-center fw-bold">
-          Browse through Generation 1 Pokémon!
+          Browse through Generation 1 Pokédex!
         </p>
         {/* <div className="form-floating mb-3">
           <input
