@@ -21,7 +21,7 @@ function PokemonCard(props) {
         colorArray.push("blue");
         break;
       case "bug":
-        colorArray.push("#6EE7B7");
+        colorArray.push("#84CC16");
         break;
       case "normal":
         colorArray.push("#A3A3A3");

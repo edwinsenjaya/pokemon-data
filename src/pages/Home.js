@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PokemonCard from "../components/PokemonCard";
 import { fetchPokemon } from "../store/action";
-// import debounce from "lodash.debounce";
 
 function Home() {
   const dispatch = useDispatch();
@@ -11,16 +10,6 @@ function Home() {
   useEffect(() => {
     dispatch(fetchPokemon());
   }, []);
-
-  //   const searchData = useMemo(() => {
-  //     return debounce((query) => {
-  //       dispatch(fetchSearch(query));
-  //     }, 2000);
-  //   }, []);
-
-  //   const onQueryChange = useCallback((q) => {
-  //     searchData(q);
-  //   }, []);
 
   return (
     <div className="container d-flex flex-column vw-100">
@@ -31,18 +20,9 @@ function Home() {
           alt=""
           style={{ height: "150px" }}
         />
-        <p className="fs-5 text-center fw-bold">
+        <h2 className="text-center fw-bold">
           Browse through Generation 1 Pokédex!
-        </p>
-        {/* <div className="form-floating mb-3">
-          <input
-            type="text"
-            className="form-control"
-            id="floatingInput"
-            placeholder="example"
-          />
-          <label className="ms-4">Search Pokémon here!</label>
-        </div> */}
+        </h2>
       </div>
       <div className="row">
         <div className="col-12 text-dark">

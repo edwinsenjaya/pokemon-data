@@ -8,61 +8,62 @@ function Details() {
 
   const dispatch = useDispatch();
   const { pokemonDetail } = useSelector((state) => state);
-  let typeColor = "";
+  let typeColor = "#A3A3A3";
 
   useEffect(() => {
     dispatch(fetchPokemonDetail(id));
   }, []);
-  console.log(pokemonDetail, "DATA");
 
-  switch (pokemonDetail?.types[0]) {
-    case "fire":
-      typeColor = "red";
-      break;
-    case "grass":
-      typeColor = "green";
-      break;
-    case "water":
-      typeColor = "blue";
-      break;
-    case "bug":
-      typeColor = "#6EE7B7";
-      break;
-    case "normal":
-      typeColor = "#A3A3A3";
-      break;
-    case "poison":
-      typeColor = "#7E22CE";
-      break;
-    case "electric":
-      typeColor = "#FACC15";
-      break;
-    case "fairy":
-      typeColor = "#DB2777";
-      break;
-    case "ground":
-      typeColor = "#78350F";
-      break;
-    case "psychic":
-      typeColor = "#F87171";
-      break;
-    case "fighting":
-      typeColor = "#C2410C";
-      break;
-    case "rock":
-      typeColor = "#CA8A04";
-      break;
-    case "ghost":
-      typeColor = "#312E81";
-      break;
-    case "ice":
-      typeColor = "#7DD3FC";
-      break;
-    case "dragon":
-      typeColor = "#A78BFA";
-      break;
-    default:
-      typeColor = "#A3A3A3";
+  if (pokemonDetail.types) {
+    switch (pokemonDetail?.types[0]) {
+      case "fire":
+        typeColor = "red";
+        break;
+      case "grass":
+        typeColor = "green";
+        break;
+      case "water":
+        typeColor = "blue";
+        break;
+      case "bug":
+        typeColor = "#84CC16";
+        break;
+      case "normal":
+        typeColor = "#A3A3A3";
+        break;
+      case "poison":
+        typeColor = "#7E22CE";
+        break;
+      case "electric":
+        typeColor = "#FACC15";
+        break;
+      case "fairy":
+        typeColor = "#DB2777";
+        break;
+      case "ground":
+        typeColor = "#78350F";
+        break;
+      case "psychic":
+        typeColor = "#F87171";
+        break;
+      case "fighting":
+        typeColor = "#C2410C";
+        break;
+      case "rock":
+        typeColor = "#CA8A04";
+        break;
+      case "ghost":
+        typeColor = "#312E81";
+        break;
+      case "ice":
+        typeColor = "#7DD3FC";
+        break;
+      case "dragon":
+        typeColor = "#A78BFA";
+        break;
+      default:
+        typeColor = "#A3A3A3";
+    }
   }
 
   function formatNumber(number) {
@@ -73,7 +74,8 @@ function Details() {
     return "#" + str;
   }
 
-  if (!pokemonDetail) {
+  if (pokemonDetail === {}) {
+    console.log("?????????");
     return (
       <section className="page">
         <div className="container d-flex flex-column vw-100">
@@ -105,6 +107,7 @@ function Details() {
       </section>
     );
   } else {
+    console.log(pokemonDetail, "detail");
     return (
       <section className="page">
         <div className="container d-flex flex-column">
@@ -151,7 +154,7 @@ function Details() {
                   <p className="mb-4 fs-4">
                     Index : {formatNumber(pokemonDetail?.index)}
                   </p>
-                  <p className="mb-4 fs-4">HP: {pokemonDetail?.stats.hp}</p>
+                  <p className="mb-4 fs-4">HP: {pokemonDetail?.stats?.hp}</p>
                   <p className="mb-4 fs-4">Height: {pokemonDetail?.height}</p>
                   <p className="mb-4 fs-4">Weight: {pokemonDetail?.weight}</p>
                   <p className="mb-4 fs-4 text-capitalize">
@@ -160,19 +163,25 @@ function Details() {
                 </div>
                 <div className="col-6">
                   <p className="mb-4 fs-4">
-                    Attack: {pokemonDetail?.stats.attack}
+                    Attack: {pokemonDetail?.stats?.attack}
                   </p>
                   <p className="mb-4 fs-4">
-                    Defense: {pokemonDetail?.stats.defense}
+                    Defense: {pokemonDetail?.stats?.defense}
                   </p>
                   <p className="mb-4 fs-4">
-                    Speed: {pokemonDetail?.stats.speed}
+                    Speed: {pokemonDetail?.stats?.speed}
                   </p>
                   <p className="mb-4 fs-4">
-                    Special Attack: {pokemonDetail?.stats["special-attack"]}
+                    Sp. Attack:{" "}
+                    {pokemonDetail.stats
+                      ? pokemonDetail?.stats["special-attack"]
+                      : null}
                   </p>
                   <p className="mb-4 fs-4">
-                    Special Defense: {pokemonDetail?.stats["special-defense"]}
+                    Sp. Defense:{" "}
+                    {pokemonDetail.stats
+                      ? pokemonDetail?.stats["special-defense"]
+                      : null}
                   </p>
                 </div>
               </div>
